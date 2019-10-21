@@ -68,10 +68,10 @@ function TodoItemCompleted(props) {
 
 function TodoItem(props) {
   return (
-    <li>
+    <li className={props.isComplited === true ? 'completed': ''}>
       <div className="view">
-        <input className="toggle" type="checkbox" />
-        <label>Buy a unicorn</label>
+        <input className="toggle" type="checkbox" checked={props.isComplited}/>
+        <label>{props.name}</label>
         <button className="destroy" />
       </div>
       <input className="edit" value="Rule the web" />
@@ -83,7 +83,7 @@ function TodoList(props) {
   return (
     <ul className="todo-list">
       <TodoItemCompleted />
-      <TodoItem />
+      <TodoItem name={'buy a unicorn'} isComplited={true}/>
     </ul>
   )
 }
