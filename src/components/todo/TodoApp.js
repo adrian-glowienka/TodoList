@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import './todo.css';
+import uuid from 'uuid/v4';
 
 function SiteFooter(props) {
   return (
@@ -21,7 +22,7 @@ function SiteFooter(props) {
 function ToggleAll(props) {
   return <Fragment>
     <input id="toggle-all" className="toggle-all" type="checkbox" />
-    <label for="toggle-all">Mark all as complete</label>
+    <label htmlFor="toggle-all">Mark all as complete</label>
   </Fragment>
 }
 
@@ -48,42 +49,52 @@ function TodoInput(props) {
     <input
       className="new-todo"
       placeholder="What needs to be done?"
-      autofocus
+      autoFocus
     />
-  )
-}
-
-function TodoItemCompleted(props) {
-  return (
-    <li className="completed">
-      <div className="view">
-        <input className="toggle" type="checkbox" checked />
-        <label>Taste JavaScript</label>
-        <button className="destroy" />
-      </div>
-      <input className="edit" value="Create a TodoMVC template" />
-    </li>
   )
 }
 
 function TodoItem(props) {
   return (
-    <li className={props.isComplited === true ? 'completed': ''}>
+    <li className={props.isCompleted === true ? 'completed' : ''}>
       <div className="view">
-        <input className="toggle" type="checkbox" checked={props.isComplited}/>
+        <input className="toggle" type="checkbox" checked={props.isCompleted} readOnly/>
         <label>{props.name}</label>
         <button className="destroy" />
       </div>
-      <input className="edit" value="Rule the web" />
+      <input className="edit" value="Rule the web" readOnly/>
     </li>
   )
 }
 
+const todos = [
+  {
+    id: uuid(),
+    name: "Taste JavaScript",
+    isCompleted: false
+  },
+  {
+    id: uuid(),
+    name:"Buy a unicorn",
+    isCompleted:true
+  },
+  {
+    id: uuid(),
+    name:"Buy a milk",
+    isCompleted:false
+  },
+  {
+    id: uuid(),
+    name:"Learn React",
+    isCompleted:false
+  }
+]
+
 function TodoList(props) {
   return (
     <ul className="todo-list">
-      <TodoItemCompleted />
-      <TodoItem name={'buy a unicorn'} isComplited={true}/>
+      {/* {todos.map(todo => <TodoItem name={todo.name} isCompleted={todo.isCompleted} />)} */}
+      {todos.map(todo => <TodoItem key={todo.id} {...todo} />)}
     </ul>
   )
 }
